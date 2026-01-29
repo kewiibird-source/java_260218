@@ -9,6 +9,7 @@ public class Java14_조건문퀴즈 {
 		// 홀수면 '홀수 입니다', 짝수면 '짝수 입니다' 출력
 		// 다만, 1~100사이 값이 아니면
 		// '1부터 100사이의 값을 입력해주세요' 출력
+		
 		Scanner s = new Scanner(System.in);
 		System.out.print("숫자를 입력해 주세요 : ");
 		int input = s.nextInt();
