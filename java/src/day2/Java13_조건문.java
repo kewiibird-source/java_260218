@@ -11,6 +11,7 @@ public class Java13_조건문 {
 		int score = s.nextInt();
 		
 		// 조건을 줄 때는 순서도 중요하다.
+		// 조건이 여러개일경우 else if 사용
 		if(score >= 90) {
 			System.out.println("A학점");
 		} else if(score >= 80) {

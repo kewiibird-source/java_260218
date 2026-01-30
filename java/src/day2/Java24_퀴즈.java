@@ -10,7 +10,7 @@ public class Java24_퀴즈 {
 		
 		Scanner s = new Scanner(System.in);
 		for(;;) {
-			System.out.println("구구단 단수를 입력하세요 : ");
+			System.out.print("구구단 단수를 입력하세요 : ");
 			int num = s.nextInt();
 			
 			if(num >= 2 && num <= 9) {
