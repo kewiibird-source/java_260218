@@ -16,6 +16,7 @@ public class Human {
 	Human() {
 	}
 	// a,b,c,d 로 구별하면 구분이 안되니까 this를 붙여서 구분함.
+	// ()안에 들어가는 것들 인자값, 매개변수, 파라미터
 	Human(String name, int age, double height, boolean isMarried) {
 		this.name = name;
 		this.age = age;
