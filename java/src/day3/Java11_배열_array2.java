@@ -13,12 +13,13 @@ public class Java11_배열_array2 {
 //		arr[3] = 50; // {10,0,0,50,0} 
 		
 		
-		for(int i=0; i<arr.length; i++) {
+		for(int i=0; i<arr.length; i++) { // arr.length는 총 배열의 크기만큼
 			arr[i] = i+1;
 		}
-		System.out.println(Arrays.toString(arr));
+		System.out.println(Arrays.toString(arr)); // 어레이 안 전체 배열을 문자열로 나열
 		
 
 	}
 
 }
+
