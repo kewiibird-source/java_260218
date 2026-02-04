@@ -21,7 +21,7 @@ public class Java07_인자전달 {
 		// arr1에 대한 주소를 arr2에게 주는것. 같은주소
 		int arr1[] = {1,2,3,4,5};
 		int arr2[] = arr1; 
-		arr1[0] = 10000;
+//		arr1[0] = 10000;
 		System.out.println(Arrays.toString(arr2));
 	}
 
