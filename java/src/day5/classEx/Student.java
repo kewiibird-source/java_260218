@@ -14,7 +14,7 @@ public class Student {
 	} // 기본생성자
 
 	// 3개의 변수를 초기화 하는 생성자
-	Student(String name, int age, String stuNo) {
+	public Student(String name, int age, String stuNo) {
 		this.name = name;
 		this.age = age;
 		this.stuNo = stuNo;
@@ -30,6 +30,10 @@ public class Student {
 
 	String getStuNo() {
 		return this.stuNo;
+	}
+
+	public void setStuNo(String stuNo) {
+		this.stuNo = stuNo;
 	}
 
 }
