@@ -7,7 +7,7 @@ public class Java01_업캐스팅 {
 //	}
 	
 	// 메소드 인자를 부모클래스로 넣으면 자식클래스들도 다 들어올 수 있음!
-	static void test1(Point p) { // instanceof 업캐스팅 된 객체가 어떤 클래스로 만들어진 객체인지 ?
+	static void test1(Point p) { // 업캐스팅 된 객체가 어떤 클래스로 만들어진 객체인지 ?
 		if(p instanceof Point3D) {
 			System.out.println("Point3D로 만든 객체!");
 		}
