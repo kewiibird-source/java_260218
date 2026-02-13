@@ -6,9 +6,25 @@ import java.util.Scanner;
 
 public class Java06_과일가게 {
 	static Scanner n = new Scanner(System.in);
-
+	
+	
+	// 과일 찾는 함수
+	public static ResultSet getFruit(Statement stmt) {
+		try {
+			System.out.print("판매할 과일이름 : ");
+			String name = n.next();
+			String sql = "SELECT * FROM TBL_FRUIT WHERE NAME = '"+name+"'";
+			System.out.println(sql);
+			return stmt.executeQuery(sql);	
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+		return null;	
+	}
+	
+	// 1. 과일 추가
 	public static void addFruit(Statement stmt) {
-
 		try {
 			// 과일 이름, 개수, 가격 입력받아서 DB(TBL_FRUIT)에 저장
 			// 과일 이름이 이미 있는 경우 개수만 입력받아서 기존거에 더해주기.
@@ -48,8 +64,8 @@ public class Java06_과일가게 {
 		}
 	}
 	
+	// 2. 과일 판매
 	public static void sellFruit(Statement stmt) {
-		
 		try {
 			System.out.print("판매할 과일이름 : ");
 			String name = n.next();
@@ -78,13 +94,34 @@ public class Java06_과일가게 {
 		
 	}
 	
-	
-	
-	
-	
-	//삭제
+	// 3. 가격 수정
+	public static void editFruit(Statement stmt) {
+		try {
+//			System.out.print("가격 수정할 과일이름 : ");
+//			String name = n.next();
+//			String sql = "SELECT * FROM TBL_FRUIT WHERE NAME = '"+name+"'";
+			ResultSet rs = getFruit(stmt);
+			if(rs.next()) {
+				System.out.println("현재 "+rs.getString("NAME")+"의 가격은"+rs.getInt("PRICE")+"원 입니다.");
+				System.out.print("수정할 금액을 입력해주세요 : ");
+				int price = n.nextInt();
+				String sql = "UPDATE TBL_FRUIT SET PRICE = "+price+
+						"WHERE NAME = '"+ rs.getString("NAME") +"'";
+				int result = stmt.executeUpdate(sql);
+				if(result > 0) {
+					System.out.println("수정되었습니다!");
+				}
+			} else {
+				System.out.println(Message.faileMsg);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}	
+	}
+
+	// 4. 과일 삭제
 	public static void removeFruit(Statement stmt) {
-		
 		try {
 			// 과일 이름 입력받고 삭제하기
 			// 과일 이름이 db에 있으면 정말 삭제할지 한번 더 물어보고('Y''N')삭제
@@ -117,34 +154,30 @@ public class Java06_과일가게 {
 			// TODO: handle exception
 			System.out.println(e.getMessage());
 		}
-		
 	}
 	
-	
-	
-	
-	
-//	public static void searchFruit(Statement stmt) {
-//		try {
-//			String sql = "SELECT * FROM TBL_FRUIT";
-//			ResultSet rs = stmt.executeQuery(sql); 
+	// 5. 과일 확인
+	public static void searchFruit(Statement stmt) {
+		try {
+			System.out.print("가격 수정할 과일이름 : ");
+			String name = n.next();
+			String sql = "SELECT * FROM TBL_FRUIT WHERE NAME = '"+name+"'";
+			ResultSet rs = stmt.executeQuery(sql);
 			// 오라클의 조회결과를 resultset 객체에 담아서 보여주는거
-//			rs.next(); 커서가 밑으로 내려가면서
-//			System.out.println(rs.getString("NAME"));
-//			while(rs.next()) {
+			if(rs.next()) {
 				// 커서가 움직이면서 데이터가 있을때, 트루 => 데이터 개수만큼 반복.
-//				System.out.println(rs.getString("NAME"));
-//				
-//			}	
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//	}
+				System.out.print(rs.getString("NAME") + " | ");
+				System.out.print(rs.getInt("PRICE") + " | ");
+				System.out.println(rs.getInt("COUNT"));
+			} else {
+				System.out.println(Message.faileMsg);
+			}
+			}	catch (Exception e) {
+			// TODO: handle exception
+				System.out.println(e.getMessage());
+		}
+	}
 	
-	
-	
-	
-
 	public static void main(String[] args) {
 		// select-search, update-edit, delete-remove, 
 		DBClass db = new DBClass();
@@ -158,34 +191,31 @@ public class Java06_과일가게 {
 				int menu = n.nextInt();
 				switch (menu) {
 				case 1:
-					// 과일추가로직함수
 					addFruit(stmt);
 					break;
 				case 2:
 					sellFruit(stmt);
 					break;
 				case 3:
-
+					editFruit(stmt);
 					break;
 				case 4:
 					removeFruit(stmt);
 					break;
 				case 5:
-//					searchFruit(stmt);
+					searchFruit(stmt);
 					break;
 				case 6:
 					System.out.println("종료되었습니다");
 					flg = !flg;
 					break;
-
 				default:
 					System.out.println("1~6 사이 메뉴를 선택하세요");
 					break;
 				}
-				break;
 			}
 		} catch (Exception e) {
-
+			System.out.println(e.getMessage());
 		}
 	}
 
