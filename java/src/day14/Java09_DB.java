@@ -54,6 +54,75 @@ public class Java09_DB {
 		}
 	}
 	
+	public static int inputscore(String subject) {
+		Scanner n = new Scanner(System.in);
+		int score = 0;
+		while(true) {
+			System.out.print(subject + " :");
+			score = n.nextInt();
+			if(score >= 0 && score <= 100 ) {
+				break;
+			} else {
+				System.out.println("점수는 0~100으로 입력!");
+			}
+		}
+		return score;
+	}
+	
+	public static void editStudent(Statement stmt) {		
+		Scanner n = new Scanner(System.in);
+		try {
+			String stuNo = "";
+			while(true) {
+				System.out.print("학번 : ");
+				stuNo = n.next();
+				String sql = "SELECT * FROM TBL_STUDENT WHERE STU_NO = '" + stuNo + "'";
+				ResultSet rs = stmt.executeQuery(sql);
+				if(rs.next()) {
+					System.out.print("[1. 자바 2. 오라클 3. html] : ");
+					int menu = n.nextInt();
+					int score = 0;
+					String subject = "";
+					switch (menu) {
+					case 1:
+						score = inputscore("자바");
+						subject = "JAVA";
+						break;
+					case 2:
+						score = inputscore("오라클");
+						subject = "ORACLE";
+						break;
+					case 3:
+						score = inputscore("html");
+						subject = "HTML";
+						break;
+
+					default:
+						System.out.println("1~3중에 선택해!!");
+						break;
+					}
+					sql = "UPDATE TBL_STUDENT SET " + subject +" = " + score +
+							" WHERE STU_NO = '" + stuNo + "'";
+					System.out.println(sql);
+							int result = stmt.executeUpdate(sql);
+							if(result > 0) {
+								System.out.println("수정되었음");
+							} else {
+								System.out.println("수정실패!");
+							}
+						break;
+						
+					}else {
+						System.out.println("없는 학번이야!!");
+					}
+			}
+			
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 	public static void removeStudent(Statement stmt) {
 		Scanner n = new Scanner(System.in);
 		try {
@@ -86,7 +155,7 @@ public class Java09_DB {
 			} else if(menu == 2) {
 				addStudent(stmt);
 			} else if(menu == 3) {
-				
+				editStudent(stmt);
 			} else if(menu == 4) {
 				removeStudent(stmt);
 			} else if(menu == 5) {
